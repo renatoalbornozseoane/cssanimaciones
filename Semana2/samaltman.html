@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>ANIMACIONES CSS - ANIMATION</title>
+        <style>
+
+    h1{
+        font-family: "century gothic";
+        color: rgba(165, 42, 42, 0);
+        text-align: center;
+
+        animation-name: titulo; /* titulo para la animacion */
+        animation-duration: 3s; /* duracion de la animacion */
+        animation-iteration-count: 1; /* cant. de veces que se realiza la animacion */
+        animation-fill-mode: forwards; /* indicas cual es el ultimo estado que se mantiene */
+        animation-delay: 3s;
+    }
+
+    @keyframes titulo{
+        from{ 
+            color: rgba(165, 42, 42, 0); 
+        }
+        to{     
+            color: rgb(0, 174, 255); 
+        }
+    }
+
+    p{
+        text-align: center;
+        font-family: "century gothic";
+        font-weight: bold;
+        animation-duration: 3s;
+        animation-iteration-count: 1;
+        animation-fill-mode: backwards;
+    }
+
+    @keyframes texto{
+        from{ 
+            color: rgba(0,0,0,0); 
+        }
+        to{ 
+            color: rgba(0,0,0,1); 
+        }
+    }
+
+    .parrafo1{
+        animation-name: texto;
+        animation-delay: 6s;
+    }
+
+    .parrafo2{
+        animation-name: texto;
+        animation-delay: 12s;
+    }
+
+    @keyframes imagen{
+        from{ 
+            opacity: 0; 
+        }
+        to{ 
+            opacity: 1; 
+        }
+    }
+
+    .img1{
+        height: 200px;
+        width: 200px;
+        display: block;
+        margin: auto;
+        opacity: 0;
+        animation-name: imagen;
+        animation-duration: 3s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        animation-delay: 0s;
+    }
+
+    .img2{
+        height: 200px;
+        width: 200px;
+        display: block;
+        margin: auto;
+        opacity: 0;
+        animation-name: imagen;
+        animation-duration: 3s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        animation-delay: 9s;
+    }
+
+    </style>
+</head>
+<body>
+
+    <img class="img1" src="img/SAMALTMAN.png">
+    <h1>SAM ALTMAN</h1>
+    <p class="parrafo1">EMPRENDEDOR E INVERSOR ESTADOUNIDENSE Y DIRECTOR DE OPEN AI</p>
+    <img class="img2" src="img/SAMALTMAN2.png">
+    <p class="parrafo2">FUE PRESIDENTE DE "Y COMBINATOR" DONDE IMPULSO EL CRECIMIENTO DE STARTUPS</p>
+
+</body>
+</html>
