@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>parallax</title>
+<style>
+        *{
+        padding: 0px;
+        margin: 0px;
+    }
+
+
+    body{
+        background-color: rgb(0, 0, 0);
+        background-image: url(imgparallax/niebla.webp);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .contenedor{
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        border: 1px black solid;
+        width: 900px;
+        height: 500px;
+    }
+
+    .volver{
+        background-color: yellow;
+        font-size: 40px;
+    }
+
+    .imgarboles{
+        position: absolute;
+    }
+
+    .imgarboles2{
+        width: 1000px;
+        height: 500px;
+        z-index: 5;
+
+        animation-name: arboles;
+        animation-duration: 10s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes arboles {
+        from{
+        transform: translateX(-100px);
+    }
+    to{
+        transform: translateX(0px);
+    }
+}
+
+    .imgfondo{
+        position: absolute;
+    }
+
+    .imgfondo2{
+        width: 1000px;
+        height: 500px;
+        z-index: 1;
+
+        margin-left: 0px; 
+        animation-name: fondo;
+        animation-duration: 10s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes fondo {
+        from{
+        transform: translateX(0px);
+        transform: translateY(0px);
+    }
+    to{
+        transform: translateX(-100px);
+        transform: translateY(-100px);
+    }
+}
+
+    .imgcaballero{
+        position: absolute;
+    }
+
+    .imgcaballero2{
+        margin-top: 250px;
+ 
+
+        animation-name: caballero;
+        animation-duration: 10s;
+        animation-fill-mode: forwards;
+    }
+
+     @keyframes caballero {
+        0%{
+            transform: translateX(100px);
+            transform: translateY(0px);
+        }
+        100%{
+            transform: translateX(10px);
+            transform: translateY(80px);
+        }
+    }
+
+    .imgniebla{
+        position: absolute;
+    }
+
+    .imgniebla2{
+        width: 1400px;
+        z-index: 1;
+
+        margin-left: 0px;
+        margin-top: -30px;
+        animation-name: niebla;
+        animation-duration: 10s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes niebla {
+        0%{
+            margin-left: 0px;
+        }
+        100%{
+            margin-left: -500px;
+        }
+    }
+
+</style>
+</head>
+
+    <div class="contenedor">
+
+        <div class="imgfondo">
+            <img src="imgparallax/fondoia.png" class="imgfondo2">
+        </div>
+
+
+        <div class="imgarboles">
+            <img src="imgparallax/capafrontal.png" class="imgarboles2">
+        </div>
+
+        <div class="imgcaballero">
+            <img src="imgparallax/caballero.png" class="imgcaballero2">
+        </div>
+
+        <div class="imgniebla">
+            <img src="imgparallax/niebla.webp" class="imgniebla2">
+        </div>
+
+
+
+    </div>
+
+</body>
+</html>
