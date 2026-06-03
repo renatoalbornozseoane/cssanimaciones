@@ -365,7 +365,6 @@
     .card-btn svg { transition: transform 0.3s; }
     .card:hover .card-btn svg { transform: translateX(4px); }
 
-    /* Disabled card (semanas no disponibles) */
     .card.disabled {
       opacity: 0.4 !important;
       cursor: not-allowed;
@@ -506,7 +505,7 @@
         <span class="stat-label">Semanas</span>
       </div>
       <div class="stat-item">
-        <span class="stat-value" data-target="5">0</span>
+        <span class="stat-value" data-target="6">0</span>
         <span class="stat-label">Proyectos</span>
       </div>
       <div class="stat-item">
@@ -605,21 +604,21 @@
        available: false → tarjeta deshabilitada (gris)
     ───────────────────────────────────────────── */
     const weeks = [
-      { n: 1,  icon: '⬡', title: 'Introducción Tabla de Ajedrez', desc: 'Estructura HTML y primeros pasos con CSS para crear un tablero de ajedrez animado.', color: 'cyan',   available: true  },
-      { n: 2,  icon: '⬢', title: 'Estilos de Animación',          desc: 'Exploración de propiedades CSS: transitions, keyframes y timing functions.',           color: 'purple', available: true  },
-      { n: 3,  icon: '◈', title: 'Movimientos de Div',             desc: 'Animaciones de traslación, rotación y escala aplicadas a elementos div.',              color: 'green',  available: true  },
-      { n: 4,  icon: '◉', title: 'Animación por Pasos',            desc: 'Uso de steps() en keyframes para crear movimientos discretos y sprite animations.',    color: 'cyan',   available: true  },
-      { n: 5,  icon: '▲', title: 'Sin clase',                      desc: 'Esta semana no hubo clase.',                                                            color: 'purple', available: false },
-      { n: 6,  icon: '◇', title: 'Clip-Path',                      desc: 'Recortes y máscaras con clip-path para crear formas y transiciones geométricas.',       color: 'green',  available: true  },
-      { n: 7,  icon: '⬟', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'cyan',   available: false },
-      { n: 8,  icon: '⊕', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'purple', available: false },
-      { n: 9,  icon: '◐', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'green',  available: false },
-      { n: 10, icon: '⬠', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'cyan',   available: false },
-      { n: 11, icon: '⬡', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'purple', available: false },
-      { n: 12, icon: '◈', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'green',  available: false },
-      { n: 13, icon: '⬢', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'cyan',   available: false },
-      { n: 14, icon: '◉', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'purple', available: false },
-      { n: 15, icon: '▲', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                              color: 'green',  available: false },
+      { n: 1,  icon: '⬡', title: 'Introducción Tabla de Ajedrez', desc: 'Estructura HTML y primeros pasos con CSS para crear un tablero de ajedrez animado.',                    color: 'cyan',   available: true  },
+      { n: 2,  icon: '⬢', title: 'Estilos de Animación',          desc: 'Exploración de propiedades CSS: transitions, keyframes y timing functions.',                             color: 'purple', available: true  },
+      { n: 3,  icon: '◈', title: 'Movimientos de Div',             desc: 'Animaciones de traslación, rotación y escala aplicadas a elementos div.',                               color: 'green',  available: true  },
+      { n: 4,  icon: '◉', title: 'Animación por Pasos',            desc: 'Uso de steps() en keyframes para crear movimientos discretos y sprite animations.',                     color: 'cyan',   available: true  },
+      { n: 5,  icon: '▲', title: 'Sin clase',                      desc: 'Esta semana no hubo clase.',                                                                             color: 'purple', available: false },
+      { n: 6,  icon: '◇', title: 'Clip-Path',                      desc: 'Recortes y máscaras con clip-path para crear formas y transiciones geométricas.',                       color: 'green',  available: true  },
+      { n: 7,  icon: '⬟', title: 'PARALLAX + SVG',                 desc: 'Efectos de paralaje combinados con gráficos SVG animados para crear experiencias visuales inmersivas.', color: 'cyan',   available: true  },
+      { n: 8,  icon: '⊕', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'purple', available: false },
+      { n: 9,  icon: '◐', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'green',  available: false },
+      { n: 10, icon: '⬠', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'cyan',   available: false },
+      { n: 11, icon: '⬡', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'purple', available: false },
+      { n: 12, icon: '◈', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'green',  available: false },
+      { n: 13, icon: '⬢', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'cyan',   available: false },
+      { n: 14, icon: '◉', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'purple', available: false },
+      { n: 15, icon: '▲', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'green',  available: false },
     ];
 
     /* GENERAR TARJETAS */
