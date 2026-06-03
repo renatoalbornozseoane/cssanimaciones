@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 07 — Parallax + SVG</title>
+  <title>TRABAJO ANIMACIONES</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,18 +14,23 @@
       --cyan:      #00f5ff;
       --neon-blue: #0080ff;
       --purple:    #b400ff;
+      --magenta:   #ff00c8;
       --green:     #00ff41;
       --dark:      #030712;
       --dark2:     #0a0f1e;
+      --dark3:     #0d1a2d;
+      --glass:     rgba(0, 245, 255, 0.04);
+      --glass-b:   rgba(0, 245, 255, 0.12);
       --text:      #c8e8ff;
       --text-dim:  #5a7a99;
+
       --glow-cyan:   0 0 8px #00f5ff, 0 0 20px #00f5ff55, 0 0 50px #00f5ff22;
       --glow-purple: 0 0 8px #b400ff, 0 0 20px #b400ff55;
+      --glow-green:  0 0 8px #00ff41, 0 0 20px #00ff4155;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Rajdhani', sans-serif;
       background: var(--dark);
@@ -34,7 +39,14 @@
       overflow-x: hidden;
     }
 
-    body::before {
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
       content: '';
       position: fixed;
       inset: 0;
@@ -42,397 +54,731 @@
       pointer-events: none;
       background: repeating-linear-gradient(
         to bottom,
-        transparent 0px, transparent 3px,
-        rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.07) 3px,
+        rgba(0,0,0,0.07) 4px
       );
+      animation: scanMove 8s linear infinite;
+    }
+    @keyframes scanMove {
+      from { background-position: 0 0; }
+      to   { background-position: 0 100vh; }
     }
 
-    #bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .page {
+    .wrapper {
       position: relative;
       z-index: 2;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      max-width: 900px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem 4rem;
+      padding: 0 1.5rem;
     }
 
-    /* ── BACK ── */
-    .back-btn {
-      display: inline-flex;
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(3,7,18,0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,245,255,0.15);
+      padding: 0.9rem 2rem;
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: 2rem;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.3s;
-      width: fit-content;
+      justify-content: space-between;
     }
-    .back-btn:hover { color: var(--cyan); }
-    .back-btn svg { transition: transform 0.3s; }
-    .back-btn:hover svg { transform: translateX(-4px); }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 3.5rem 0 2.5rem;
-      position: relative;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 3rem; left: -1rem;
-      width: 50px; height: 50px;
-      border-top: 2px solid rgba(0,245,255,0.3);
-      border-left: 2px solid rgba(0,245,255,0.3);
-    }
-
-    .week-tag {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
+    .nav-logo {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 1.1rem;
       color: var(--cyan);
       text-shadow: var(--glow-cyan);
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
     }
-    .week-tag::after {
+    .nav-logo span { color: var(--purple); text-shadow: var(--glow-purple); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s, text-shadow 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
       content: '';
-      display: inline-block;
-      width: 40px; height: 1px;
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 1px;
       background: var(--cyan);
-      opacity: 0.5;
+      transition: width 0.3s;
+      box-shadow: var(--glow-cyan);
+    }
+    .nav-links a:hover { color: var(--cyan); text-shadow: var(--glow-cyan); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-burger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--cyan);
+      box-shadow: var(--glow-cyan);
+      transition: transform 0.3s, opacity 0.3s;
+      border-radius: 2px;
     }
 
+    header {
+      padding: 10rem 0 5rem;
+      text-align: center;
+      position: relative;
+    }
+    header::before, header::after {
+      content: '';
+      position: absolute;
+      width: 60px; height: 60px;
+      border-color: var(--cyan);
+      border-style: solid;
+      opacity: 0.35;
+    }
+    header::before { top: 7rem; left: 2rem; border-width: 2px 0 0 2px; }
+    header::after  { top: 7rem; right: 2rem; border-width: 2px 2px 0 0; }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      border: 1px solid rgba(0,255,65,0.35);
+      padding: 0.3rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+      text-shadow: var(--glow-green);
+      animation: pulse-badge 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-badge {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.6; }
+    }
     .hero-title {
       font-family: 'Orbitron', monospace;
       font-weight: 900;
-      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      line-height: 1.05;
+      letter-spacing: 0.06em;
       color: #fff;
-      letter-spacing: 0.05em;
-      line-height: 1.1;
       text-shadow:
         0 0 10px #fff,
         0 0 30px var(--cyan),
-        0 0 60px var(--cyan);
+        0 0 70px var(--cyan),
+        0 0 130px var(--neon-blue);
+      animation: flicker 6s ease-in-out infinite;
       margin-bottom: 0.6rem;
-      animation: flicker 7s ease-in-out infinite;
     }
     @keyframes flicker {
-      0%,94%,100% { opacity:1; }
-      95% { opacity:0.85; }
-      97% { opacity:0.7; }
-      98% { opacity:1; }
+      0%,95%,100% { opacity: 1; }
+      96%          { opacity: 0.85; }
+      97%          { opacity: 1; }
+      98%          { opacity: 0.7; }
+      99%          { opacity: 1; }
     }
-
     .hero-sub {
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.82rem;
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
       color: var(--cyan);
-      opacity: 0.6;
       letter-spacing: 0.18em;
       text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+    .hero-desc {
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .scroll-cue {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-cue svg { opacity: 0.5; }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(6px); }
     }
 
-    /* ── DIVIDER ── */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, rgba(0,245,255,0.5), rgba(180,0,255,0.3), transparent);
-      margin: 2rem 0;
-      opacity: 0.4;
-    }
-
-    /* ── SECTION LABEL ── */
     .section-label {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1.2rem;
-    }
-    .section-label .icon {
-      font-size: 1rem;
-      filter: drop-shadow(0 0 6px var(--cyan));
+      gap: 1rem;
+      margin-bottom: 2.8rem;
     }
     .section-label h2 {
       font-family: 'Orbitron', monospace;
-      font-size: 0.85rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      font-size: 1.6rem;
       color: var(--cyan);
       text-shadow: var(--glow-cyan);
-      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      white-space: nowrap;
     }
     .section-label .line {
       flex: 1;
       height: 1px;
-      background: linear-gradient(to right, rgba(0,245,255,0.3), transparent);
+      background: linear-gradient(to right, rgba(0,245,255,0.5), transparent);
+    }
+    .section-label .tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      white-space: nowrap;
     }
 
-    /* ── LINKS ── */
-    .links-grid {
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.6rem;
+      margin-bottom: 6rem;
+    }
+    .card {
+      position: relative;
+      background: var(--glass);
+      border: 1px solid rgba(0,245,255,0.12);
+      border-radius: 8px;
+      padding: 2rem 1.8rem;
+      text-decoration: none;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .link-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1rem 1.4rem;
-      background: rgba(0,245,255,0.03);
-      border: 1px solid rgba(0,245,255,0.1);
-      border-radius: 6px;
-      text-decoration: none;
-      color: var(--text);
-      position: relative;
+      gap: 0.9rem;
       overflow: hidden;
-      transition: border-color 0.3s, background 0.3s, transform 0.3s;
-      animation: slideIn 0.5s cubic-bezier(.23,1.02,.32,1) both;
+      cursor: pointer;
+      transition:
+        transform 0.35s cubic-bezier(.23,1.02,.32,1),
+        border-color 0.35s,
+        box-shadow 0.35s,
+        background 0.35s;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: cardIn 0.6s cubic-bezier(.23,1.02,.32,1) forwards;
     }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-20px); }
-      to   { opacity: 1; transform: translateX(0); }
+    @keyframes cardIn {
+      to { opacity: 1; transform: translateY(0); }
     }
-    .links-grid .link-card:nth-child(1) { animation-delay: 0.1s; }
-    .links-grid .link-card:nth-child(2) { animation-delay: 0.2s; }
-    .links-grid .link-card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(odd)  { animation-name: cardIn, floatA; animation-duration: 0.6s, 5s; animation-timing-function: cubic-bezier(.23,1.02,.32,1), ease-in-out; animation-iteration-count: 1, infinite; animation-fill-mode: forwards, none; }
+    .card:nth-child(even) { animation-name: cardIn, floatB; animation-duration: 0.6s, 5.5s; animation-timing-function: cubic-bezier(.23,1.02,.32,1), ease-in-out; animation-iteration-count: 1, infinite; animation-fill-mode: forwards, none; }
+    @keyframes floatA { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+    @keyframes floatB { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
 
-    .link-card::before {
+    .card:hover {
+      transform: translateY(-10px) scale(1.02) !important;
+      border-color: var(--cyan);
+      background: rgba(0,245,255,0.07);
+      box-shadow:
+        0 0 0 1px rgba(0,245,255,0.3),
+        0 0 30px rgba(0,245,255,0.15),
+        0 20px 60px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .card::before {
       content: '';
       position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: var(--cyan);
-      box-shadow: 0 0 10px var(--cyan);
+      top: 0; left: 0;
+      width: 40px; height: 40px;
+      border-top: 2px solid var(--cyan);
+      border-left: 2px solid var(--cyan);
+      border-radius: 8px 0 0 0;
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.35s;
+      box-shadow: -3px -3px 12px rgba(0,245,255,0.3);
     }
-    .link-card:hover::before { opacity: 1; }
-
-    .link-card::after {
+    .card:hover::before { opacity: 1; }
+    .card::after {
       content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 40px; height: 40px;
+      border-bottom: 2px solid var(--purple);
+      border-right: 2px solid var(--purple);
+      border-radius: 0 0 8px 0;
+      opacity: 0;
+      transition: opacity 0.35s;
+      box-shadow: 3px 3px 12px rgba(180,0,255,0.3);
+    }
+    .card:hover::after { opacity: 1; }
+    .card-shine {
       position: absolute;
       inset: 0;
-      background: linear-gradient(105deg, transparent 40%, rgba(0,245,255,0.05) 50%, transparent 60%);
+      background: linear-gradient(115deg, transparent 40%, rgba(0,245,255,0.06) 50%, transparent 60%);
       transform: translateX(-100%);
       transition: transform 0s;
     }
-    .link-card:hover::after {
-      transform: translateX(100%);
-      transition: transform 0.5s ease;
-    }
-
-    .link-card:hover {
-      border-color: rgba(0,245,255,0.4);
-      background: rgba(0,245,255,0.06);
-      transform: translateX(6px);
-    }
-    .link-card:hover .link-name {
-      color: var(--cyan);
-      text-shadow: 0 0 12px rgba(0,245,255,0.5);
-    }
-    .link-card:hover .link-arrow {
-      opacity: 1;
-      color: var(--cyan);
-      transform: translateX(4px);
-    }
-
-    .link-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .link-num {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      min-width: 28px;
-    }
-    .link-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 600;
-      font-size: 1.05rem;
-      letter-spacing: 0.06em;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
-    .link-arrow {
-      color: var(--text-dim);
-      opacity: 0.4;
-      transition: opacity 0.3s, transform 0.3s, color 0.3s;
-      flex-shrink: 0;
-    }
-
-    /* ── FOOTER ── */
-    .page-footer {
+    .card:hover .card-shine { transform: translateX(100%); transition: transform 0.6s ease; }
+    .card-icon { font-size: 2rem; line-height: 1; filter: drop-shadow(0 0 8px var(--cyan)); }
+    .card-week { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+    .card-title { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: 0.05em; text-shadow: 0 0 20px rgba(0,245,255,0.4); }
+    .card-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
+    .card-btn {
       margin-top: auto;
-      padding-top: 3rem;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid rgba(0,245,255,0.08);
-    }
-    .footer-week {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--text-dim);
+      gap: 0.5rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
       letter-spacing: 0.15em;
-      opacity: 0.5;
+      text-transform: uppercase;
+      color: var(--cyan);
+      padding: 0.55rem 1.1rem;
+      border: 1px solid rgba(0,245,255,0.3);
+      border-radius: 4px;
+      align-self: flex-start;
+      background: rgba(0,245,255,0.04);
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, color 0.3s;
     }
-    .footer-dots { display: flex; gap: 5px; }
-    .footer-dots span {
-      display: block;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--text-dim);
-      opacity: 0.2;
+    .card:hover .card-btn { background: rgba(0,245,255,0.12); border-color: var(--cyan); box-shadow: 0 0 14px rgba(0,245,255,0.2), inset 0 0 10px rgba(0,245,255,0.05); color: #fff; }
+    .card-btn svg { transition: transform 0.3s; }
+    .card:hover .card-btn svg { transform: translateX(4px); }
+
+    .card.disabled {
+      opacity: 0.4 !important;
+      cursor: not-allowed;
+      pointer-events: none;
+      filter: grayscale(0.6);
     }
-    .footer-dots span.active {
-      background: var(--cyan);
-      opacity: 1;
-      box-shadow: 0 0 6px var(--cyan);
+
+    .card[data-color="purple"]:hover { border-color: var(--purple); background: rgba(180,0,255,0.06); box-shadow: 0 0 0 1px rgba(180,0,255,0.3), 0 0 30px rgba(180,0,255,0.12), 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04); }
+    .card[data-color="purple"] .card-icon  { filter: drop-shadow(0 0 8px var(--purple)); }
+    .card[data-color="purple"] .card-title { text-shadow: 0 0 20px rgba(180,0,255,0.5); }
+    .card[data-color="purple"] .card-btn   { color: var(--purple); border-color: rgba(180,0,255,0.3); background: rgba(180,0,255,0.04); }
+    .card[data-color="purple"]:hover .card-btn { border-color: var(--purple); box-shadow: 0 0 14px rgba(180,0,255,0.2); color: #fff; background: rgba(180,0,255,0.12); }
+    .card[data-color="purple"]::before { border-color: var(--purple); box-shadow: -3px -3px 12px rgba(180,0,255,0.3); }
+    .card[data-color="purple"]::after  { border-color: var(--cyan); box-shadow: 3px 3px 12px rgba(0,245,255,0.3); }
+
+    .card[data-color="green"]:hover { border-color: var(--green); background: rgba(0,255,65,0.05); box-shadow: 0 0 0 1px rgba(0,255,65,0.3), 0 0 30px rgba(0,255,65,0.1), 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04); }
+    .card[data-color="green"] .card-icon  { filter: drop-shadow(0 0 8px var(--green)); }
+    .card[data-color="green"] .card-title { text-shadow: 0 0 20px rgba(0,255,65,0.4); }
+    .card[data-color="green"] .card-btn   { color: var(--green); border-color: rgba(0,255,65,0.3); background: rgba(0,255,65,0.04); }
+    .card[data-color="green"]:hover .card-btn { border-color: var(--green); box-shadow: 0 0 14px rgba(0,255,65,0.2); color: #fff; background: rgba(0,255,65,0.1); }
+    .card[data-color="green"]::before { border-color: var(--green); box-shadow: -3px -3px 12px rgba(0,255,65,0.3); }
+    .card[data-color="green"]::after  { border-color: var(--neon-blue); box-shadow: 3px 3px 12px rgba(0,128,255,0.3); }
+
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: rgba(0,245,255,0.08);
+      border: 1px solid rgba(0,245,255,0.12);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 5rem;
     }
+    .stat-item { padding: 1.6rem 1.4rem; background: var(--dark2); text-align: center; transition: background 0.3s; }
+    .stat-item:hover { background: rgba(0,245,255,0.05); }
+    .stat-value { font-family: 'Orbitron', monospace; font-size: 2rem; font-weight: 900; color: var(--cyan); text-shadow: var(--glow-cyan); display: block; }
+    .stat-label { font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .progress-section { margin-bottom: 5rem; }
+    .progress-item { margin-bottom: 1.2rem; }
+    .progress-info { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; }
+    .progress-bar-track { height: 6px; background: rgba(255,255,255,0.05); border-radius: 99px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 99px; width: 0; transition: width 1.2s cubic-bezier(.23,1.02,.32,1); }
+    .progress-bar-fill.cyan   { background: linear-gradient(to right, var(--neon-blue), var(--cyan)); box-shadow: 0 0 10px var(--cyan); }
+    .progress-bar-fill.purple { background: linear-gradient(to right, #7000cc, var(--purple)); box-shadow: 0 0 10px var(--purple); }
+    .progress-bar-fill.green  { background: linear-gradient(to right, #007a20, var(--green)); box-shadow: 0 0 10px var(--green); }
+
+    footer {
+      position: relative;
+      border-top: 1px solid rgba(0,245,255,0.1);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      background: linear-gradient(to top, rgba(0,245,255,0.03), transparent);
+    }
+    .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.4rem; color: var(--cyan); text-shadow: var(--glow-cyan); margin-bottom: 0.7rem; }
+    .footer-text { font-size: 0.85rem; color: var(--text-dim); letter-spacing: 0.08em; margin-bottom: 1.5rem; }
+    .footer-divider { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--cyan), transparent); margin: 1.2rem auto; }
+    .footer-copy { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.15em; opacity: 0.5; }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      transition: opacity 0.6s, visibility 0.6s;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-text { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--cyan); letter-spacing: 0.2em; text-transform: uppercase; text-shadow: var(--glow-cyan); }
+    .loader-bar-track { width: 260px; height: 2px; background: rgba(0,245,255,0.1); }
+    .loader-bar-fill { height: 100%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); width: 0; animation: loadBar 1.5s ease forwards 0.2s; }
+    @keyframes loadBar { to { width: 100%; } }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 1rem; position: fixed; top: 56px; left: 0; right: 0; background: rgba(3,7,18,0.96); padding: 2rem; border-bottom: 1px solid rgba(0,245,255,0.12); }
+      .nav-links.open { display: flex; }
+      .nav-burger { display: flex; }
+      header { padding: 8rem 0 4rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: repeat(2,1fr); }
+    }
+
+    section { padding: 2rem 0; }
+    .glow-line { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--cyan), var(--purple), transparent); margin: 3rem 0; opacity: 0.3; }
   </style>
 </head>
 <body>
 
-  <canvas id="bg"></canvas>
-
-  <div class="page">
-
-    <a href="../index.html" class="back-btn">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M13 7H1M7 1L1 7l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Volver al inicio
-    </a>
-
-    <div class="hero">
-      <div class="week-tag">⬟ Semana 07</div>
-      <h1 class="hero-title">Parallax<br>+ SVG</h1>
-      <p class="hero-sub">CSS Parallax — Gráficos Vectoriales Animados</p>
+  <div id="loader">
+    <div class="loader-text">⬡ INICIALIZANDO SISTEMA...</div>
+    <div class="loader-bar-track">
+      <div class="loader-bar-fill"></div>
     </div>
+  </div>
 
-    <div class="divider"></div>
+  <canvas id="bg-canvas"></canvas>
 
-    <!-- CLASES -->
-    <div class="section-label">
-      <span class="icon">⬡</span>
-      <h2>Clases</h2>
-      <div class="line"></div>
-    </div>
+  <nav>
+    <a href="#" class="nav-logo">ANI<span>MACIONES</span>.WEB</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#semanas">Semanas</a></li>
+      <li><a href="#progreso">Progreso</a></li>
+    </ul>
+    <button class="nav-burger" id="burger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-    <div class="links-grid">
-      <a href="index.html" class="link-card">
-        <div class="link-left">
-          <span class="link-num">01</span>
-          <span class="link-name">Parallax 2 - Paisaje</span>
-        </div>
-        <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <header id="inicio">
+    <div class="wrapper">
+      <div class="badge">◈ CURSO DE ANIMACIONES WEB ◈</div>
+      <h1 class="hero-title">TRABAJOS</h1>
+      <p class="hero-sub">&lt; Animaciones &amp; Frontend &gt;</p>
+      <p class="hero-desc">
+        Colección de proyectos semanales del curso de Animaciones Web.
+        Cada módulo explora técnicas de CSS, JavaScript y diseño interactivo.
+      </p>
+      <div class="scroll-cue">
+        <span>SCROLL</span>
+        <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
+          <rect x="6.5" y="1" width="3" height="5" rx="1.5" fill="currentColor"/>
+          <rect x="0.5" y="0.5" width="15" height="19" rx="7.5" stroke="currentColor" stroke-opacity=".4"/>
         </svg>
-      </a>
+      </div>
     </div>
+  </header>
 
-    <div class="page-footer">
-      <span class="footer-week">◈ ANIMACIONES.WEB // SEMANA 07</span>
-      <div class="footer-dots">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span class="active"></span>
+  <div class="wrapper">
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-value" data-target="15">0</span>
+        <span class="stat-label">Semanas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" data-target="6">0</span>
+        <span class="stat-label">Proyectos</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" data-target="3">0</span>
+        <span class="stat-label">Tecnologías</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" data-target="100">0</span>
+        <span class="stat-label">Creatividad %</span>
       </div>
     </div>
 
+    <section id="semanas">
+      <div class="section-label">
+        <h2>SEMANAS</h2>
+        <div class="line"></div>
+        <span class="tag">// MÓDULOS DEL CURSO</span>
+      </div>
+
+      <div class="cards-grid" id="cards-grid"></div>
+    </section>
+
+    <div class="glow-line"></div>
+
+    <section id="progreso" class="progress-section">
+      <div class="section-label">
+        <h2>PROGRESO</h2>
+        <div class="line"></div>
+        <span class="tag">// ESTADO DEL CURSO</span>
+      </div>
+
+      <div id="progress-items">
+        <div class="progress-item">
+          <div class="progress-info">
+            <span>CSS Animations</span>
+            <span style="color:var(--cyan)">85%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill cyan" data-width="85"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span>JavaScript &amp; DOM</span>
+            <span style="color:var(--purple)">72%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill purple" data-width="72"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span>Canvas &amp; WebGL</span>
+            <span style="color:var(--green)">60%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill green" data-width="60"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span>Diseño Responsivo</span>
+            <span style="color:var(--cyan)">90%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill cyan" data-width="90"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
+  <footer>
+    <div class="footer-logo">ANIMACIONES.WEB</div>
+    <p class="footer-text">Diseñado para el curso de <strong style="color:var(--cyan)">Animaciones Web</strong></p>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">◈ &lt;/código&gt; con dedicación ◈</p>
+  </footer>
+
   <script>
-    (function() {
-      const canvas = document.getElementById('bg');
-      const ctx = canvas.getContext('2d');
-      let W, H;
+    /* LOADER */
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1700);
+    });
+
+    /* BURGER */
+    const burger   = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    /* ─────────────────────────────────────────────
+       SEMANAS — solo edita aquí para agregar más
+       available: true  → tarjeta clickeable con link
+       available: false → tarjeta deshabilitada (gris)
+    ───────────────────────────────────────────── */
+    const weeks = [
+      { n: 1,  icon: '⬡', title: 'Introducción Tabla de Ajedrez', desc: 'Estructura HTML y primeros pasos con CSS para crear un tablero de ajedrez animado.',                    color: 'cyan',   available: true  },
+      { n: 2,  icon: '⬢', title: 'Estilos de Animación',          desc: 'Exploración de propiedades CSS: transitions, keyframes y timing functions.',                             color: 'purple', available: true  },
+      { n: 3,  icon: '◈', title: 'Movimientos de Div',             desc: 'Animaciones de traslación, rotación y escala aplicadas a elementos div.',                               color: 'green',  available: true  },
+      { n: 4,  icon: '◉', title: 'Animación por Pasos',            desc: 'Uso de steps() en keyframes para crear movimientos discretos y sprite animations.',                     color: 'cyan',   available: true  },
+      { n: 5,  icon: '▲', title: 'Sin clase',                      desc: 'Esta semana no hubo clase.',                                                                             color: 'purple', available: false },
+      { n: 6,  icon: '◇', title: 'Clip-Path',                      desc: 'Recortes y máscaras con clip-path para crear formas y transiciones geométricas.',                       color: 'green',  available: true  },
+      { n: 7,  icon: '⬟', title: 'PARALLAX + SVG',                 desc: 'Efectos de paralaje combinados con gráficos SVG animados para crear experiencias visuales inmersivas.', color: 'cyan',   available: true  },
+      { n: 8,  icon: '⊕', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'purple', available: false },
+      { n: 9,  icon: '◐', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'green',  available: false },
+      { n: 10, icon: '⬠', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'cyan',   available: false },
+      { n: 11, icon: '⬡', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'purple', available: false },
+      { n: 12, icon: '◈', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'green',  available: false },
+      { n: 13, icon: '⬢', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'cyan',   available: false },
+      { n: 14, icon: '◉', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'purple', available: false },
+      { n: 15, icon: '▲', title: 'Próximamente',                   desc: 'Contenido en desarrollo.',                                                                              color: 'green',  available: false },
+    ];
+
+    /* GENERAR TARJETAS */
+    const grid = document.getElementById('cards-grid');
+    weeks.forEach((w, i) => {
+      const a = document.createElement('a');
+      a.href = w.available ? `Semana${w.n}/index.html` : '#';
+      a.className = 'card' + (w.available ? '' : ' disabled');
+      a.dataset.color = w.color;
+      a.style.animationDelay = `${i * 0.07 + 0.2}s`;
+      a.innerHTML = `
+        <div class="card-shine"></div>
+        <div class="card-icon">${w.icon}</div>
+        <span class="card-week">// Semana ${String(w.n).padStart(2,'0')}</span>
+        <h3 class="card-title">${w.title}</h3>
+        <p class="card-desc">${w.desc}</p>
+        <span class="card-btn">
+          ${w.available ? 'Ver proyecto' : 'En desarrollo'}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>`;
+      grid.appendChild(a);
+    });
+
+    /* CONTADORES */
+    function animateCounter(el, target, suffix = '') {
+      let current = 0;
+      const step = Math.ceil(target / 40);
+      const interval = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current + suffix;
+        if (current >= target) clearInterval(interval);
+      }, 35);
+    }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('[data-target]').forEach(el => {
+          const t = parseInt(el.dataset.target);
+          const suffix = el.nextElementSibling?.textContent === 'Creatividad %' ? '%' : '';
+          animateCounter(el, t, suffix);
+        });
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.3 });
+    observer.observe(document.querySelector('.stats-bar'));
+
+    /* BARRAS DE PROGRESO */
+    const barObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.progress-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+        barObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.3 });
+    barObserver.observe(document.getElementById('progress-items'));
+
+    /* CANVAS */
+    (function initCanvas() {
+      const canvas = document.getElementById('bg-canvas');
+      const ctx    = canvas.getContext('2d');
+      let W, H, particles, mouse = { x: null, y: null };
 
       function resize() {
         W = canvas.width  = window.innerWidth;
         H = canvas.height = window.innerHeight;
       }
-      window.addEventListener('resize', resize);
+      window.addEventListener('resize', () => { resize(); buildParticles(); });
       resize();
 
-      const pts = Array.from({ length: 45 }, () => ({
-        x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.2 + 0.4,
-        hue: Math.random() < 0.6 ? 190 : (Math.random() < 0.5 ? 270 : 140),
-      }));
+      window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
 
-      const COLS = Math.floor(W / 22);
-      const drops = Array.from({ length: COLS }, (_, i) => ({
-        x: i * 22, y: Math.random() * -300,
-        speed: Math.random() * 1 + 0.25,
-        char: '', t: 0,
-      }));
-      const CHARS = '01アイウXABCD<>{}';
+      function buildParticles() {
+        const count = Math.min(Math.floor(W * H / 14000), 90);
+        particles = [];
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+            r: Math.random() * 1.5 + 0.5,
+            hue: Math.random() < 0.6 ? 190 : (Math.random() < 0.5 ? 270 : 140),
+          });
+        }
+      }
+      buildParticles();
+
+      const COLS = Math.floor(W / 20);
+      const rain = [];
+      for (let i = 0; i < COLS; i++) {
+        rain.push({ x: i * 20, y: Math.random() * -200, speed: Math.random() * 1.2 + 0.3, char: '', timer: 0 });
+      }
+      const chars = '01アイウエオカキクケコABCDEFGX<>{}[];';
+      let frame = 0;
 
       function draw() {
-        ctx.fillStyle = 'rgba(3,7,18,0.2)';
+        ctx.fillStyle = 'rgba(3,7,18,0.18)';
         ctx.fillRect(0, 0, W, H);
+        frame++;
 
-        drops.forEach(d => {
-          d.t++;
-          if (d.t % 9 === 0) d.char = CHARS[Math.floor(Math.random() * CHARS.length)];
-          ctx.font = '9px "Share Tech Mono"';
-          ctx.fillStyle = `rgba(0,255,65,${Math.random() * 0.12 + 0.02})`;
-          ctx.fillText(d.char, d.x, d.y);
-          d.y += d.speed;
-          if (d.y > H) { d.y = Math.random() * -150; d.x = Math.floor(Math.random() * W / 22) * 22; }
+        rain.forEach(drop => {
+          drop.timer++;
+          if (drop.timer % 8 === 0) drop.char = chars[Math.floor(Math.random() * chars.length)];
+          ctx.font = '10px "Share Tech Mono", monospace';
+          ctx.fillStyle = `rgba(0,255,65,${Math.random() * 0.15 + 0.03})`;
+          ctx.fillText(drop.char, drop.x, drop.y);
+          drop.y += drop.speed;
+          if (drop.y > H) { drop.y = Math.random() * -120; drop.x = Math.floor(Math.random() * W / 20) * 20; }
         });
 
-        ctx.strokeStyle = 'rgba(0,245,255,0.02)';
-        ctx.lineWidth = 0.5;
-        for (let x = 0; x < W; x += 80) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
-        for (let y = 0; y < H; y += 80) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+        if (frame % 3 === 0) {
+          ctx.strokeStyle = 'rgba(0,245,255,0.025)';
+          ctx.lineWidth = 0.5;
+          for (let x = 0; x < W; x += 80) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+          for (let y = 0; y < H; y += 80) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+        }
 
-        pts.forEach(p => {
+        particles.forEach(p => {
+          if (mouse.x !== null) {
+            const dx = p.x - mouse.x, dy = p.y - mouse.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < 120) { p.vx += dx / dist * 0.06; p.vy += dy / dist * 0.06; }
+          }
           p.x += p.vx; p.y += p.vy;
-          p.vx *= 0.995; p.vy *= 0.995;
+          p.vx *= 0.99; p.vy *= 0.99;
           if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
           if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `hsla(${p.hue},100%,70%,0.65)`;
+          ctx.fillStyle = `hsla(${p.hue},100%,70%,0.7)`;
           ctx.fill();
         });
 
-        for (let i = 0; i < pts.length; i++) {
-          for (let j = i + 1; j < pts.length; j++) {
-            const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-            const d = Math.sqrt(dx*dx + dy*dy);
-            if (d < 120) {
+        const MAX_DIST = 130;
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < MAX_DIST) {
               ctx.beginPath();
-              ctx.moveTo(pts[i].x, pts[i].y);
-              ctx.lineTo(pts[j].x, pts[j].y);
-              ctx.strokeStyle = `hsla(${(pts[i].hue+pts[j].hue)/2},100%,70%,${(1-d/120)*0.25})`;
-              ctx.lineWidth = 0.5;
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `hsla(${(particles[i].hue+particles[j].hue)/2},100%,70%,${(1-dist/MAX_DIST)*0.3})`;
+              ctx.lineWidth = 0.6;
               ctx.stroke();
             }
           }
+        }
+
+        if (mouse.x !== null) {
+          const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 100);
+          g.addColorStop(0, 'rgba(0,245,255,0.06)');
+          g.addColorStop(1, 'rgba(0,245,255,0)');
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(mouse.x, mouse.y, 100, 0, Math.PI * 2);
+          ctx.fill();
         }
 
         requestAnimationFrame(draw);
