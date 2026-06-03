@@ -54,6 +54,7 @@ img{
     color: rgba(0,0,0,0);
     animation: subtitulo 3s forwards;
     animation-delay: 3s;
+    text-align: center;
 }
 
 @keyframes subtitulo{
