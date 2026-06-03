@@ -1,1 +1,245 @@
-sss
+/* =========================
+   ESTILOS GENERALES
+========================= */
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor{
+    width: 400px;
+    height: 200px;
+    border: 1px solid black;
+    position: relative;
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+/* =========================
+   MOVIMIENTO HORIZONTAL
+========================= */
+
+.cuadrito-horizontal{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    top: 50px;
+    left: 200px;
+
+    animation: horizontal 3s infinite linear;
+}
+
+@keyframes horizontal{
+    from{
+        left: -200px;
+    }
+    to{
+        left: 500px;
+    }
+}
+
+/* =========================
+   MOVIMIENTO VERTICAL
+========================= */
+
+.cuadrito-vertical{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    top: 50px;
+    left: 150px;
+
+    animation: vertical 3s infinite linear;
+}
+
+@keyframes vertical{
+    from{
+        top: 500px;
+    }
+    to{
+        top: -150px;
+    }
+}
+
+/* =========================
+   MOVIMIENTO DIAGONAL
+========================= */
+
+.cuadrito-diagonal{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+
+    animation: diagonal 3s infinite linear;
+}
+
+@keyframes diagonal{
+    from{
+        top: -100px;
+        left: -100px;
+    }
+    to{
+        top: 300px;
+        left: 500px;
+    }
+}
+
+/* =========================
+   MEGAMAN
+========================= */
+
+.megaman{
+    background-color: aqua;
+}
+
+.cuadrito-megaman{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50px;
+    left: 150px;
+
+    animation: megaman 3s infinite linear;
+}
+
+.cuadrito-megaman img{
+    width: 100px;
+    height: 100px;
+}
+
+@keyframes megaman{
+    from{
+        left: -150px;
+    }
+    to{
+        left: 500px;
+    }
+}
+
+/* =========================
+   ASTRONAUTA
+========================= */
+
+.astronauta{
+    background-color: black;
+}
+
+.cuadrito-astronauta{
+    position: absolute;
+    top: 50px;
+    left: 150px;
+}
+
+.cuadrito-astronauta img{
+    width: 100px;
+
+    animation: astronauta 1s infinite alternate;
+}
+
+@keyframes astronauta{
+    from{
+        rotate: -2deg;
+    }
+    to{
+        rotate: 15deg;
+    }
+}
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+.estrellita1,
+.estrellita2,
+.estrellita3,
+.estrellita4,
+.estrellita5,
+.estrellita6,
+.estrellita7,
+.estrellita8,
+.estrellita9,
+.estrellita10{
+    width: 3px;
+    height: 3px;
+    background-color: white;
+    position: absolute;
+
+    animation-name: estrellita;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.estrellita1{
+    top: 15px;
+    left: 30px;
+    animation-duration: 8s;
+}
+
+.estrellita2{
+    top: 80px;
+    left: 150px;
+    animation-duration: 12s;
+}
+
+.estrellita3{
+    top: 40px;
+    left: 320px;
+    animation-duration: 9s;
+}
+
+.estrellita4{
+    top: 120px;
+    left: 60px;
+    animation-duration: 11s;
+}
+
+.estrellita5{
+    top: 170px;
+    left: 250px;
+    animation-duration: 7s;
+}
+
+.estrellita6{
+    top: 55px;
+    left: 190px;
+    animation-duration: 13s;
+}
+
+.estrellita7{
+    top: 100px;
+    left: 90px;
+    animation-duration: 10s;
+}
+
+.estrellita8{
+    top: 25px;
+    left: 370px;
+    animation-duration: 8s;
+}
+
+.estrellita9{
+    top: 160px;
+    left: 130px;
+    animation-duration: 14s;
+}
+
+.estrellita10{
+    top: 70px;
+    left: 280px;
+    animation-duration: 6s;
+}
+
+@keyframes estrellita{
+    from{
+        left: -100px;
+    }
+    to{
+        left: 500px;
+    }
+}
