@@ -1,1 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana 07 — Parallax + SVG</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cyan:      #00f5ff;
+      --neon-blue: #0080ff;
+      --purple:    #b400ff;
+      --green:     #00ff41;
+      --dark:      #030712;
+      --dark2:     #0a0f1e;
+      --text:      #c8e8ff;
+      --text-dim:  #5a7a99;
+      --glow-cyan:   0 0 8px #00f5ff, 0 0 20px #00f5ff55, 0 0 50px #00f5ff22;
+      --glow-purple: 0 0 8px #b400ff, 0 0 20px #b400ff55;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 3px,
+        rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+      );
+    }
+
+    #bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    /* ── BACK ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+      width: fit-content;
+    }
+    .back-btn:hover { color: var(--cyan); }
+    .back-btn svg { transition: transform 0.3s; }
+    .back-btn:hover svg { transform: translateX(-4px); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 3rem; left: -1rem;
+      width: 50px; height: 50px;
+      border-top: 2px solid rgba(0,245,255,0.3);
+      border-left: 2px solid rgba(0,245,255,0.3);
+    }
+
+    .week-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--cyan);
+      text-shadow: var(--glow-cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .week-tag::after {
+      content: '';
+      display: inline-block;
+      width: 40px; height: 1px;
+      background: var(--cyan);
+      opacity: 0.5;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      color: #fff;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      text-shadow:
+        0 0 10px #fff,
+        0 0 30px var(--cyan),
+        0 0 60px var(--cyan);
+      margin-bottom: 0.6rem;
+      animation: flicker 7s ease-in-out infinite;
+    }
+    @keyframes flicker {
+      0%,94%,100% { opacity:1; }
+      95% { opacity:0.85; }
+      97% { opacity:0.7; }
+      98% { opacity:1; }
+    }
+
+    .hero-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--cyan);
+      opacity: 0.6;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, rgba(0,245,255,0.5), rgba(180,0,255,0.3), transparent);
+      margin: 2rem 0;
+      opacity: 0.4;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .section-label .icon {
+      font-size: 1rem;
+      filter: drop-shadow(0 0 6px var(--cyan));
+    }
+    .section-label h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--cyan);
+      text-shadow: var(--glow-cyan);
+      text-transform: uppercase;
+    }
+    .section-label .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(0,245,255,0.3), transparent);
+    }
+
+    /* ── LINKS ── */
+    .links-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.4rem;
+      background: rgba(0,245,255,0.03);
+      border: 1px solid rgba(0,245,255,0.1);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+      animation: slideIn 0.5s cubic-bezier(.23,1.02,.32,1) both;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .links-grid .link-card:nth-child(1) { animation-delay: 0.1s; }
+    .links-grid .link-card:nth-child(2) { animation-delay: 0.2s; }
+    .links-grid .link-card:nth-child(3) { animation-delay: 0.3s; }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .link-card:hover::before { opacity: 1; }
+
+    .link-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(0,245,255,0.05) 50%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform 0s;
+    }
+    .link-card:hover::after {
+      transform: translateX(100%);
+      transition: transform 0.5s ease;
+    }
+
+    .link-card:hover {
+      border-color: rgba(0,245,255,0.4);
+      background: rgba(0,245,255,0.06);
+      transform: translateX(6px);
+    }
+    .link-card:hover .link-name {
+      color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0,245,255,0.5);
+    }
+    .link-card:hover .link-arrow {
+      opacity: 1;
+      color: var(--cyan);
+      transform: translateX(4px);
+    }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .link-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      min-width: 28px;
+    }
+    .link-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+    .link-arrow {
+      color: var(--text-dim);
+      opacity: 0.4;
+      transition: opacity 0.3s, transform 0.3s, color 0.3s;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      margin-top: auto;
+      padding-top: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(0,245,255,0.08);
+    }
+    .footer-week {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      opacity: 0.5;
+    }
+    .footer-dots { display: flex; gap: 5px; }
+    .footer-dots span {
+      display: block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+      opacity: 0.2;
+    }
+    .footer-dots span.active {
+      background: var(--cyan);
+      opacity: 1;
+      box-shadow: 0 0 6px var(--cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <div class="page">
+
+    <a href="../index.html" class="back-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M13 7H1M7 1L1 7l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver al inicio
+    </a>
+
+    <div class="hero">
+      <div class="week-tag">⬟ Semana 07</div>
+      <h1 class="hero-title">Parallax<br>+ SVG</h1>
+      <p class="hero-sub">CSS Parallax — Gráficos Vectoriales Animados</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CLASES -->
+    <div class="section-label">
+      <span class="icon">⬡</span>
+      <h2>Clases</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="links-grid">
+      <a href="parallax.html" class="link-card">
+        <div class="link-left">
+          <span class="link-num">01</span>
+          <span class="link-name">Parallax 2 - Paisaje</span>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="page-footer">
+      <span class="footer-week">◈ ANIMACIONES.WEB // SEMANA 07</span>
+      <div class="footer-dots">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span class="active"></span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      const canvas = document.getElementById('bg');
+      const ctx = canvas.getContext('2d');
+      let W, H;
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const pts = Array.from({ length: 45 }, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 1.2 + 0.4,
+        hue: Math.random() < 0.6 ? 190 : (Math.random() < 0.5 ? 270 : 140),
+      }));
+
+      const COLS = Math.floor(W / 22);
+      const drops = Array.from({ length: COLS }, (_, i) => ({
+        x: i * 22, y: Math.random() * -300,
+        speed: Math.random() * 1 + 0.25,
+        char: '', t: 0,
+      }));
+      const CHARS = '01アイウXABCD<>{}';
+
+      function draw() {
+        ctx.fillStyle = 'rgba(3,7,18,0.2)';
+        ctx.fillRect(0, 0, W, H);
+
+        drops.forEach(d => {
+          d.t++;
+          if (d.t % 9 === 0) d.char = CHARS[Math.floor(Math.random() * CHARS.length)];
+          ctx.font = '9px "Share Tech Mono"';
+          ctx.fillStyle = `rgba(0,255,65,${Math.random() * 0.12 + 0.02})`;
+          ctx.fillText(d.char, d.x, d.y);
+          d.y += d.speed;
+          if (d.y > H) { d.y = Math.random() * -150; d.x = Math.floor(Math.random() * W / 22) * 22; }
+        });
+
+        ctx.strokeStyle = 'rgba(0,245,255,0.02)';
+        ctx.lineWidth = 0.5;
+        for (let x = 0; x < W; x += 80) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+        for (let y = 0; y < H; y += 80) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+        pts.forEach(p => {
+          p.x += p.vx; p.y += p.vy;
+          p.vx *= 0.995; p.vy *= 0.995;
+          if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+          if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `hsla(${p.hue},100%,70%,0.65)`;
+          ctx.fill();
+        });
+
+        for (let i = 0; i < pts.length; i++) {
+          for (let j = i + 1; j < pts.length; j++) {
+            const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < 120) {
+              ctx.beginPath();
+              ctx.moveTo(pts[i].x, pts[i].y);
+              ctx.lineTo(pts[j].x, pts[j].y);
+              ctx.strokeStyle = `hsla(${(pts[i].hue+pts[j].hue)/2},100%,70%,${(1-d/120)*0.25})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+
+</body>
+</html>
