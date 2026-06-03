@@ -1,0 +1,111 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: black;
+}
+
+.contenedor {
+    width: 500px;
+    height: 800px;
+    border: 1px solid white;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.cielo {
+    position: absolute;
+    left: -200px;
+    top: -150px;
+    filter: blur(5px);
+}
+@keyframes cielo {
+    from{
+        scale: 100%;
+        filter: blur(5px);
+    }
+    to {
+        scale: 150%;
+        filter: blur(5px);
+    }
+}
+
+.montaña {
+    position: absolute;
+    left: -600px;
+    animation: montaña 20s 1 forwards;
+}
+@keyframes montaña {
+    from {
+        top: 0px;
+        scale: 50%;
+        filter: blur(5px);
+    }
+    to{
+        top: -50px;
+        scale: 50%;
+        filter: blur(0px);
+    }
+}
+
+.persona {
+    position: absolute;
+    width: 800px;
+    left: -150px;
+    top: 300px;
+    z-index: 2;
+}
+@keyframes persona {
+    from {
+        top: 0px;
+        scale: 100%;
+    }
+    to {
+        top: -70;
+        scale: 90%;
+    }
+
+}
+
+.neblina {
+    position: absolute;
+    width: 1000px;
+    left: -150px;
+    top: 400px;
+}
+
+.title {
+    position: absolute;
+    z-index: 1;
+    top: 440px;
+    left: 25px;
+}
+
+.title svg {
+    width: 450px;
+    height: 450px;
+}
+
+.title svg path {
+    fill: transparent;
+    stroke: rgb(255, 255, 255);
+    stroke-width: 30;
+    stroke-dasharray: 5000;
+    stroke-dashoffset: 5000;
+    animation: title 5s ease-in-out 1 forwards 3s;
+}
+@keyframes title {
+    0% {
+        stroke-dashoffset: 50;
+    }
+    80% {
+        fill: transparent;
+    }
+    100% {
+        fill: rgb(250, 250, 250);
+        stroke-dashoffset: 0;   
+    }
+}
