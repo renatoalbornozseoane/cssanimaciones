@@ -1,1 +1,32 @@
-ddssd
+*{
+    margin: 0px;
+    padding: 0px;
+    float: left;
+}
+
+#cuadrito1{
+    background-color: white;
+}
+
+#cuadrito2{
+    background-color: black;
+}
+
+#cuadrito1,
+#cuadrito2{
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+}
+
+#contenedor1,
+#contenedor2,
+#contenedor3,
+#contenedor4,
+#contenedor5,
+#contenedor6,
+#contenedor7,
+#contenedor8{
+    height: 100px;
+    width: 800px;
+}
