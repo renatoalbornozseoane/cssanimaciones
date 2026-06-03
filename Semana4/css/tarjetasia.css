@@ -1,0 +1,177 @@
+*{
+    margin:0px;
+    padding:0px;
+    background-color:black;
+}
+
+.texto{
+    width:100%;
+    height:500px;
+    margin:0 auto;
+    position:absolute;
+    text-align:center;
+    font-family:"Century Gothic", sans-serif;
+    animation:texto 3s forwards;
+    font-size:24px;
+    color:white;
+    text-shadow:0 0 10px rgb(55, 0, 255),
+                0 0 20px rgb(255, 0, 0);
+}
+
+@keyframes texto{
+    0%{
+        top:0px;
+        left:0px;
+        transform:rotateX(360deg);
+    }
+    100%{
+        top:400px;
+        left:0px;
+    }
+}
+
+.contenedor{
+    width:1000px;
+    height:300px;
+    border:1px solid black;
+    margin:0 auto;
+    position:relative;
+    overflow:hidden;
+    top:100px;
+    box-shadow:0 0 20px cyan;
+}
+
+.marco1{
+    width:200px;
+    height:300px;
+    background-color:red;
+    position:absolute;
+    top:0px;
+    left:-200px;
+    animation:marco1 3s forwards;
+    background-image:url(../imgtarjetaIA/css.jpg);
+    background-size:cover;
+}
+
+@keyframes marco1{
+    0%{
+        top:0px;
+        left:0px;
+    }
+    50%{
+        top:0px;
+        left:800px;
+    }
+    100%{
+        top:0px;
+        left:0px;
+    }
+}
+
+.marco2{
+    width:200px;
+    height:300px;
+    background-color:green;
+    position:absolute;
+    top:-300px;
+    left:200px;
+    animation:marco2 3s forwards 6s;
+    background-image:url(../imgtarjetaIA/lana.jpg);
+    background-size:cover;
+}
+
+@keyframes marco2{
+    0%{
+        top:-300px;
+        left:200px;
+    }
+    50%{
+        top:300px;
+        left:200px;
+    }
+    100%{
+        top:0px;
+        left:200px;
+    }
+}
+
+.marco3{
+    width:200px;
+    height:300px;
+    background-color:yellowgreen;
+    position:absolute;
+    top:300px;
+    left:400px;
+    animation:marco3 3s forwards 9s;
+    background-image:url(../imgtarjetaIA/niñohtml.jpg);
+    background-size:cover;
+}
+
+@keyframes marco3{
+    0%{
+        top:300px;
+        left:400px;
+    }
+    50%{
+        top:-300px;
+        left:400px;
+    }
+    100%{
+        top:0px;
+        left:400px;
+    }
+}
+
+.marco4{
+    width:200px;
+    height:300px;
+    background-color:blue;
+    position:absolute;
+    top:-300px;
+    left:600px;
+    animation:marco4 4s forwards 12s;
+    background-image:url(../imgtarjetaIA/mhiajs.jpg);
+    background-size:cover;
+}
+
+@keyframes marco4{
+    0%{
+        top:-300px;
+        left:600px;
+    }
+    50%{
+        top:300px;
+        left:600px;
+    }
+    100%{
+        top:0px;
+        left:600px;
+    }
+}
+
+.marco5{
+    width:200px;
+    height:300px;
+    background-color:blue;
+    position:absolute;
+    top:0px;
+    left:-200px;
+    animation:marco5 3s forwards 3s;
+    background-image:url(../imgtarjetaIA/php.jpg);
+    background-size:cover;
+}
+
+@keyframes marco5{
+    0%{
+        top:0px;
+        left:-200px;
+    }
+    50%{
+        top:0px;
+        left:1000px;
+    }
+    100%{
+        top:0px;
+        left:800px;
+    }
+}
