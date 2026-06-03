@@ -1,1 +1,168 @@
-dddd
+/* ==========================
+   ESTILOS GENERALES
+========================== */
+
+body{
+    font-family: "Century Gothic", sans-serif;
+}
+
+h1{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+    font-weight: bold;
+}
+
+img{
+    display: block;
+    margin: auto;
+}
+
+/* ==========================
+   ANIMACIONES
+========================== */
+
+@keyframes titulo{
+    from{
+        color: rgba(0,0,0,0);
+    }
+    to{
+        color: rgba(0,0,0,1);
+    }
+}
+
+@keyframes texto{
+    from{
+        color: rgba(0,0,0,0);
+    }
+    to{
+        color: rgba(0,0,0,1);
+    }
+}
+
+@keyframes imagen{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+/* ==========================
+   DRA. LISA SU
+========================== */
+
+.lisa-titulo{
+    color: rgba(0,0,0,0);
+    animation: titulo 3s forwards;
+}
+
+.lisa-subtitulo{
+    color: rgba(0,0,0,0);
+    animation: subtitulo 3s forwards;
+    animation-delay: 3s;
+}
+
+@keyframes subtitulo{
+    from{
+        color: rgba(0,0,0,0);
+    }
+    to{
+        color: rgb(255,81,0);
+    }
+}
+
+.lisa-img{
+    width: 300px;
+    height: 200px;
+    opacity: 0;
+    animation: imagen 3s forwards;
+    animation-delay: 6s;
+}
+
+.lisa-parrafo1{
+    animation: texto 3s backwards;
+    animation-delay: 9s;
+}
+
+.lisa-parrafo2{
+    animation: texto 3s backwards;
+    animation-delay: 12s;
+}
+
+/* ==========================
+   MANUEL SEOANE CORRALES
+========================== */
+
+.msc-titulo{
+    color: rgba(165,42,42,0);
+    animation: mscTitulo 3s forwards;
+}
+
+@keyframes mscTitulo{
+    from{
+        color: rgba(165,42,42,0);
+    }
+    to{
+        color: rgb(255,0,55);
+    }
+}
+
+.msc-texto{
+    animation: texto 3s backwards;
+    animation-delay: 3s;
+}
+
+.msc-img{
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    animation: imagen 3s 6s 1 forwards;
+}
+
+/* ==========================
+   SAM ALTMAN
+========================== */
+
+.sam-titulo{
+    color: rgba(165,42,42,0);
+    animation: samTitulo 3s forwards;
+    animation-delay: 3s;
+}
+
+@keyframes samTitulo{
+    from{
+        color: rgba(165,42,42,0);
+    }
+    to{
+        color: rgb(0,174,255);
+    }
+}
+
+.sam-parrafo1{
+    animation: texto 3s backwards;
+    animation-delay: 6s;
+}
+
+.sam-parrafo2{
+    animation: texto 3s backwards;
+    animation-delay: 12s;
+}
+
+.sam-img1{
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    animation: imagen 3s forwards;
+}
+
+.sam-img2{
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    animation: imagen 3s forwards;
+    animation-delay: 9s;
+}
