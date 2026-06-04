@@ -1,1 +1,85 @@
-sddssdsd
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+body{
+    background-color: black;
+    background-image: url(../imgparallax/niebla.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contenedor{
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid black;
+    width: 900px;
+    height: 500px;
+}
+
+.imgarboles,
+.imgfondo,
+.imgcaballero,
+.imgniebla{
+    position: absolute;
+}
+
+/* ARBOLES */
+.imgarboles2{
+    width: 1000px;
+    height: 500px;
+    z-index: 5;
+    animation: arboles 10s forwards;
+}
+
+@keyframes arboles {
+    from { transform: translateX(-100px); }
+    to   { transform: translateX(0px); }
+}
+
+/* FONDO */
+.imgfondo2{
+    width: 1000px;
+    height: 500px;
+    z-index: 1;
+    animation: fondo 10s forwards;
+}
+
+@keyframes fondo {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(-100px) translateY(-100px);
+    }
+}
+
+/* CABALLERO */
+.imgcaballero2{
+    margin-top: 250px;
+    animation: caballero 10s forwards;
+}
+
+@keyframes caballero {
+    from {
+        transform: translateX(100px) translateY(0px);
+    }
+    to {
+        transform: translateX(10px) translateY(80px);
+    }
+}
+
+/* NIEBLA */
+.imgniebla2{
+    width: 1400px;
+    z-index: 1;
+    margin-top: -30px;
+    animation: niebla 10s forwards;
+}
+
+@keyframes niebla {
+    from { margin-left: 0px; }
+    to   { margin-left: -500px; }
+}
