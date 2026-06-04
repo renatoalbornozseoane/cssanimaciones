@@ -24,9 +24,16 @@
         left:0px;
         transform:rotateX(360deg);
     }
-    100%{
+
+    50%{
         top:400px;
         left:0px;
+    }
+
+    100%{
+        top:0px;
+        left:0px;
+        transform:rotateX(0deg);
     }
 }
 
