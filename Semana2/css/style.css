@@ -148,5 +148,20 @@ img{
     height: 200px;
     opacity: 0;
     animation: imagen 3s forwards;
+
+.volver{
+    display: inline-block;
+    margin: 10px;
+    padding: 8px 14px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: Arial;
+}
+
+.volver:hover{
+    background: gray;
+}
     animation-delay: 9s;
 }
