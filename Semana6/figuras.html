@@ -1,1 +1,211 @@
-ss
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=|, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        .contenedor{
+            width: 700px;
+            height: 500px;
+            border: 2px solid black;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+            background-color: skyblue;
+            background-image: url(imgfiguras/fondo-gym.jfif);
+            background-position: center;
+            background-size: 800px;
+            animation: fondoMovimiento 8s ease-in-out infinite alternate;
+        }
+        @keyframes fondoMovimiento {
+            0% {
+                background-position: 40% center;
+                background-size: 800px;
+            }
+            100% {
+                background-position: 60% center;
+                background-size: 860px;
+            }
+        }
+        .personaje{
+            position: absolute;
+            top: 0;
+            left: 70px;
+            width: 150px;
+            height: 420px;
+            animation: flotar 3s ease-in-out infinite;
+        }
+        @keyframes flotar {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        .triangulo{
+            width: 150px;
+            height: 150px;
+            top: 0px;
+            left: 70px;
+            position: absolute;
+            background-color: rgb(0, 102, 255);
+            background-image: url(imgfiguras/gorro.avif);
+            background-position: top;
+            background-size: 205px;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            overflow: hidden;
+            z-index: 3;
+        }
+        .circulo{
+            width: 150px;
+            height: 150px;
+            top: 130px;
+            left: 70px;
+            position: absolute;
+            background-position: center;
+            background-size: 183px;
+            background-color: rgb(98, 0, 255);
+            background-image: url(imgfiguras/emoji\ genial.jfif);
+            clip-path: circle(50% at 50% 50%);
+            overflow: hidden;
+            z-index: 2;
+        }
+        .trapezio{
+            width: 150px;
+            height: 150px;
+            top: 270px;
+            left: 70px;
+            position: absolute;
+            background-color: rgb(255, 0, 0);
+            background-image: url(imgfiguras/polo.webp);
+            background-position: center;
+            background-size: 180px;
+            clip-path: polygon(30% 0, 69% 0, 88% 100%, 12% 100%);
+            overflow: hidden;
+            z-index: 1;
+        }
+        .brazo1{
+            width: 150px;
+            height: 150px;
+            top: 230px;
+            left: 5px;
+            position: absolute;
+            background-color: rgb(255, 0, 0);
+            background-image: url(imgfiguras/brazo1.jfif);
+            background-position: center;
+            background-size: 120px;
+            clip-path: polygon(40% 15%, 40% 34%, 100% 34%, 100% 66%, 40% 67%, 40% 84%, 10% 50%);
+            overflow: hidden;
+            z-index: 0;
+            transform-origin: right center;
+            animation: curlIzq 1.6s ease-in-out infinite;
+        }
+        @keyframes curlIzq {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(-25deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+        .brazo2{
+            width: 150px;
+            height: 150px;
+            top: 233px;
+            left: 130px;
+            position: absolute;
+            background-color: rgb(255, 0, 0);
+            background-image: url(imgfiguras/brazo2.jfif);
+            background-position: center;
+            background-size: 120px;
+            clip-path: polygon(0 32%, 59% 31%, 59% 12%, 89% 50%, 59% 85%, 59% 65%, 0 65%);
+            overflow: hidden;
+            z-index: 0;
+            transform-origin: left center;
+            animation: curlDer 1.6s ease-in-out infinite;
+        }
+        @keyframes curlDer {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(25deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+        .pie1 {
+            width: 150px;
+            height: 150px;
+            top: 360px;
+            left: 30px;
+            position: absolute;
+            background-color: rgb(255, 0, 0);
+            background-image: url(imgfiguras/zapatilla1.jfif);
+            background-position: center;
+            background-size: 115px;
+            clip-path: ellipse(31% 18% at 50% 50%);
+            overflow: hidden;
+            z-index: 1;
+            animation: pasopie1 1.2s ease-in-out infinite alternate;
+        }
+        .pie2 {
+            width: 150px;
+            height: 150px;
+            top: 360px;
+            left: 115px;
+            position: absolute;
+            background-color: rgb(255, 0, 0);
+            background-image: url(imgfiguras/zapatilla2.jfif);
+            background-position: center;
+            background-size: 115px;
+            clip-path: ellipse(31% 18% at 50% 50%);
+            overflow: hidden;
+            z-index: 1;
+            animation: pasopie2 1.2s ease-in-out infinite alternate;
+        }
+        @keyframes pasopie1 {
+            0% {
+                transform: translateX(0px);
+            }
+            100% {
+                transform: translateX(-8px);
+            }
+        }
+        @keyframes pasopie2 {
+            0% {
+                transform: translateX(0px);
+            }
+            100% {
+                transform: translateX(8px);
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="triangulo"></div>
+        <div class="circulo"></div>
+        <div class="trapezio"></div>
+        <div class="brazo1"></div>
+        <div class="brazo2"></div>
+        <div class="pie1"></div>
+        <div class="pie2"></div>
+    </div>
+</body>
+</html>
