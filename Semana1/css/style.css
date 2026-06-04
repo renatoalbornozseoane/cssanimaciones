@@ -30,3 +30,18 @@
     height: 100px;
     width: 800px;
 }
+
+.volver{
+    display: inline-block;
+    margin: 10px;
+    padding: 8px 14px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: Arial;
+}
+
+.volver:hover{
+    background: gray;
+}
